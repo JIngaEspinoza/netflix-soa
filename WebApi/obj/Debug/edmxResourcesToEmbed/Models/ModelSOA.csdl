@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="soaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="alumnos">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombres" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="apellidos" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="edad" Type="Int32" />
+    <Property Name="fec_reg" Type="DateTime" Precision="0" />
+    <Property Name="fec_act" Type="DateTime" Precision="0" />
+    <Property Name="genero" Type="Boolean" />
+    <Property Name="tipodocumento_id" Type="Int32" />
+    <Property Name="dni" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="categorias" Relationship="Self.FK__alumnos__tipodoc__182C9B23" FromRole="alumnos" ToRole="categorias" />
+    <NavigationProperty Name="notas" Relationship="Self.FK_notas_alumnos" FromRole="alumnos" ToRole="notas" />
+    <NavigationProperty Name="cursos" Relationship="Self.alumnos_cursos" FromRole="alumnos" ToRole="cursos" />
+  </EntityType>
+  <EntityType Name="categorias">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="categoria_id" Type="Int32" />
+    <Property Name="fec_reg" Type="DateTime" Precision="0" />
+    <Property Name="fec_act" Type="DateTime" Precision="0" />
+    <Property Name="nivel" Type="Int32" />
+    <Property Name="orden" Type="Int32" />
+    <NavigationProperty Name="alumnos" Relationship="Self.FK__alumnos__tipodoc__182C9B23" FromRole="categorias" ToRole="alumnos" />
+    <NavigationProperty Name="categorias1" Relationship="Self.FK__categoria__categ__1B0907CE" FromRole="categorias" ToRole="categorias1" />
+    <NavigationProperty Name="categorias2" Relationship="Self.FK__categoria__categ__1B0907CE" FromRole="categorias1" ToRole="categorias" />
+    <NavigationProperty Name="cursos" Relationship="Self.FK__cursos__categori__1ED998B2" FromRole="categorias" ToRole="cursos" />
+    <NavigationProperty Name="notas" Relationship="Self.FK_notas_categorias" FromRole="categorias" ToRole="notas" />
+  </EntityType>
+  <EntityType Name="cursos">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombres" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="fec_reg" Type="DateTime" Precision="0" />
+    <Property Name="fec_act" Type="DateTime" Precision="0" />
+    <Property Name="creditos" Type="Int32" />
+    <Property Name="categoria_id" Type="Int32" />
+    <NavigationProperty Name="categorias" Relationship="Self.FK__cursos__categori__1ED998B2" FromRole="cursos" ToRole="categorias" />
+    <NavigationProperty Name="notas" Relationship="Self.FK_notas_cursos" FromRole="cursos" ToRole="notas" />
+    <NavigationProperty Name="alumnos" Relationship="Self.alumnos_cursos" FromRole="cursos" ToRole="alumnos" />
+  </EntityType>
+  <EntityType Name="notas">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="alumno_id" Type="Int32" Nullable="false" />
+    <Property Name="curso_id" Type="Int32" Nullable="false" />
+    <Property Name="estado_id" Type="Int32" />
+    <Property Name="nota1" Type="Int32" />
+    <Property Name="nota2" Type="Int32" />
+    <Property Name="nota3" Type="Int32" />
+    <Property Name="nota4" Type="Int32" />
+    <Property Name="notafinal" Type="Int32" />
+    <NavigationProperty Name="alumnos" Relationship="Self.FK_notas_alumnos" FromRole="notas" ToRole="alumnos" />
+    <NavigationProperty Name="categorias" Relationship="Self.FK_notas_categorias" FromRole="notas" ToRole="categorias" />
+    <NavigationProperty Name="cursos" Relationship="Self.FK_notas_cursos" FromRole="notas" ToRole="cursos" />
+  </EntityType>
+  <Association Name="FK__alumnos__tipodoc__182C9B23">
+    <End Role="categorias" Type="Self.categorias" Multiplicity="0..1" />
+    <End Role="alumnos" Type="Self.alumnos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categorias">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="alumnos">
+        <PropertyRef Name="tipodocumento_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_notas_alumnos">
+    <End Role="alumnos" Type="Self.alumnos" Multiplicity="1" />
+    <End Role="notas" Type="Self.notas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="alumnos">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="notas">
+        <PropertyRef Name="alumno_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__categoria__categ__1B0907CE">
+    <End Role="categorias" Type="Self.categorias" Multiplicity="0..1" />
+    <End Role="categorias1" Type="Self.categorias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categorias">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="categorias1">
+        <PropertyRef Name="categoria_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__cursos__categori__1ED998B2">
+    <End Role="categorias" Type="Self.categorias" Multiplicity="0..1" />
+    <End Role="cursos" Type="Self.cursos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categorias">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="cursos">
+        <PropertyRef Name="categoria_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_notas_categorias">
+    <End Role="categorias" Type="Self.categorias" Multiplicity="0..1" />
+    <End Role="notas" Type="Self.notas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categorias">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="notas">
+        <PropertyRef Name="estado_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_notas_cursos">
+    <End Role="cursos" Type="Self.cursos" Multiplicity="1" />
+    <End Role="notas" Type="Self.notas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cursos">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="notas">
+        <PropertyRef Name="curso_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="alumnos_cursos">
+    <End Role="alumnos" Type="Self.alumnos" Multiplicity="*" />
+    <End Role="cursos" Type="Self.cursos" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="soaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="alumnos" EntityType="Self.alumnos" />
+    <EntitySet Name="categorias" EntityType="Self.categorias" />
+    <EntitySet Name="cursos" EntityType="Self.cursos" />
+    <EntitySet Name="notas" EntityType="Self.notas" />
+    <AssociationSet Name="FK__alumnos__tipodoc__182C9B23" Association="Self.FK__alumnos__tipodoc__182C9B23">
+      <End Role="categorias" EntitySet="categorias" />
+      <End Role="alumnos" EntitySet="alumnos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_notas_alumnos" Association="Self.FK_notas_alumnos">
+      <End Role="alumnos" EntitySet="alumnos" />
+      <End Role="notas" EntitySet="notas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__categoria__categ__1B0907CE" Association="Self.FK__categoria__categ__1B0907CE">
+      <End Role="categorias" EntitySet="categorias" />
+      <End Role="categorias1" EntitySet="categorias" />
+    </AssociationSet>
+    <AssociationSet Name="FK__cursos__categori__1ED998B2" Association="Self.FK__cursos__categori__1ED998B2">
+      <End Role="categorias" EntitySet="categorias" />
+      <End Role="cursos" EntitySet="cursos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_notas_categorias" Association="Self.FK_notas_categorias">
+      <End Role="categorias" EntitySet="categorias" />
+      <End Role="notas" EntitySet="notas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_notas_cursos" Association="Self.FK_notas_cursos">
+      <End Role="cursos" EntitySet="cursos" />
+      <End Role="notas" EntitySet="notas" />
+    </AssociationSet>
+    <AssociationSet Name="alumnos_cursos" Association="Self.alumnos_cursos">
+      <End Role="alumnos" EntitySet="alumnos" />
+      <End Role="cursos" EntitySet="cursos" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

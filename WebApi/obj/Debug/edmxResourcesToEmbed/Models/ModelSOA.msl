@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="soaModelStoreContainer" CdmEntityContainer="soaEntities">
+    <EntitySetMapping Name="alumnos">
+      <EntityTypeMapping TypeName="soaModel.alumnos">
+        <MappingFragment StoreEntitySet="alumnos">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nombres" ColumnName="nombres" />
+          <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+          <ScalarProperty Name="edad" ColumnName="edad" />
+          <ScalarProperty Name="fec_reg" ColumnName="fec_reg" />
+          <ScalarProperty Name="fec_act" ColumnName="fec_act" />
+          <ScalarProperty Name="genero" ColumnName="genero" />
+          <ScalarProperty Name="tipodocumento_id" ColumnName="tipodocumento_id" />
+          <ScalarProperty Name="dni" ColumnName="dni" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="categorias">
+      <EntityTypeMapping TypeName="soaModel.categorias">
+        <MappingFragment StoreEntitySet="categorias">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="categoria_id" ColumnName="categoria_id" />
+          <ScalarProperty Name="fec_reg" ColumnName="fec_reg" />
+          <ScalarProperty Name="fec_act" ColumnName="fec_act" />
+          <ScalarProperty Name="nivel" ColumnName="nivel" />
+          <ScalarProperty Name="orden" ColumnName="orden" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cursos">
+      <EntityTypeMapping TypeName="soaModel.cursos">
+        <MappingFragment StoreEntitySet="cursos">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nombres" ColumnName="nombres" />
+          <ScalarProperty Name="fec_reg" ColumnName="fec_reg" />
+          <ScalarProperty Name="fec_act" ColumnName="fec_act" />
+          <ScalarProperty Name="creditos" ColumnName="creditos" />
+          <ScalarProperty Name="categoria_id" ColumnName="categoria_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="notas">
+      <EntityTypeMapping TypeName="soaModel.notas">
+        <MappingFragment StoreEntitySet="notas">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="alumno_id" ColumnName="alumno_id" />
+          <ScalarProperty Name="curso_id" ColumnName="curso_id" />
+          <ScalarProperty Name="estado_id" ColumnName="estado_id" />
+          <ScalarProperty Name="nota1" ColumnName="nota1" />
+          <ScalarProperty Name="nota2" ColumnName="nota2" />
+          <ScalarProperty Name="nota3" ColumnName="nota3" />
+          <ScalarProperty Name="nota4" ColumnName="nota4" />
+          <ScalarProperty Name="notafinal" ColumnName="notafinal" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="alumnos_cursos" TypeName="soaModel.alumnos_cursos" StoreEntitySet="alumnos_cursos">
+      <EndProperty Name="alumnos">
+        <ScalarProperty Name="id" ColumnName="alumno_id" />
+      </EndProperty>
+      <EndProperty Name="cursos">
+        <ScalarProperty Name="id" ColumnName="curso_id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

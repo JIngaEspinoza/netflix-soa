@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <div id="app">
+        <h1>Lista de alumnos</h1>
+        Tipo de documento: <select v-model="tipodocumento_id">
+            <option value="1">Tipo 1</option>
+            <option value="2">Tipo 2</option>
+            <option value="3">Tipo 3</option>
+            <option value="4">Tipo 4</option>
+        </select>
+
+        Nombre: <input v-model="nombres" />
+        <button @click="buscar">Buscar</button>
+        <br />
+        Resultados: {{nombres}}
+
+        <table>
+            <tr>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Edad</th>
+            </tr>
+
+            <tr v-for="item in alumnos">
+                <td>{{item.nombres}}</td>
+                <td>{{item.apellidos}}</td>
+                <td>{{item.edad}}</td>
+            </tr>
+        </table>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                tipodocumento_id: 1,
+                nombres: "",
+                alumnos: []
+            },
+            methods: {
+                buscar: function () {
+                    var url = "http://localhost:51014/api/Evaluacion/ListarAlumnosPorDocumento";
+                    this.$http.get(url).then(function (response) {
+                        this.alumnos = response.body;
+                    });
+                    //alert(this.nombres);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

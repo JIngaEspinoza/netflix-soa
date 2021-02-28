@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="netflixdbModelStoreContainer" CdmEntityContainer="netflixdbEntities1">
+    <EntitySetMapping Name="audios">
+      <EntityTypeMapping TypeName="netflixdbModel.audio">
+        <MappingFragment StoreEntitySet="audios">
+          <ScalarProperty Name="id_audio" ColumnName="id_audio" />
+          <ScalarProperty Name="url_ubicacion" ColumnName="url_ubicacion" />
+          <ScalarProperty Name="id_idioma" ColumnName="id_idioma" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="capitulos">
+      <EntityTypeMapping TypeName="netflixdbModel.capitulo">
+        <MappingFragment StoreEntitySet="capitulos">
+          <ScalarProperty Name="id_capitulo" ColumnName="id_capitulo" />
+          <ScalarProperty Name="nro_capitulo" ColumnName="nro_capitulo" />
+          <ScalarProperty Name="id_temporada" ColumnName="id_temporada" />
+          <ScalarProperty Name="id_video" ColumnName="id_video" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="contenido_multimedia_generos">
+      <EntityTypeMapping TypeName="netflixdbModel.contenido_multimedia_generos">
+        <MappingFragment StoreEntitySet="contenido_multimedia_generos">
+          <ScalarProperty Name="id_cm_genero" ColumnName="id_cm_genero" />
+          <ScalarProperty Name="id_genero" ColumnName="id_genero" />
+          <ScalarProperty Name="id_contenido_multimedia" ColumnName="id_contenido_multimedia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="contenidos_multimedia">
+      <EntityTypeMapping TypeName="netflixdbModel.contenidos_multimedia">
+        <MappingFragment StoreEntitySet="contenidos_multimedia">
+          <ScalarProperty Name="id_contenido_multimedia" ColumnName="id_contenido_multimedia" />
+          <ScalarProperty Name="edad_clasificacion" ColumnName="edad_clasificacion" />
+          <ScalarProperty Name="anho_publicacion" ColumnName="anho_publicacion" />
+          <ScalarProperty Name="director" ColumnName="director" />
+          <ScalarProperty Name="id_video" ColumnName="id_video" />
+          <ScalarProperty Name="id_tcontenido_multimedia" ColumnName="id_tcontenido_multimedia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cuenta_perfiles">
+      <EntityTypeMapping TypeName="netflixdbModel.cuenta_perfiles">
+        <MappingFragment StoreEntitySet="cuenta_perfiles">
+          <ScalarProperty Name="id_cuentaperfil" ColumnName="id_cuentaperfil" />
+          <ScalarProperty Name="id_cuenta" ColumnName="id_cuenta" />
+          <ScalarProperty Name="id_perfil" ColumnName="id_perfil" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cuentas">
+      <EntityTypeMapping TypeName="netflixdbModel.cuenta">
+        <MappingFragment StoreEntitySet="cuentas">
+          <ScalarProperty Name="id_cuenta" ColumnName="id_cuenta" />
+          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+          <ScalarProperty Name="fecha_facturacion" ColumnName="fecha_facturacion" />
+          <ScalarProperty Name="activo" ColumnName="activo" />
+          <ScalarProperty Name="id_propietario" ColumnName="id_propietario" />
+          <ScalarProperty Name="id_plan" ColumnName="id_plan" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="estado_actividades">
+      <EntityTypeMapping TypeName="netflixdbModel.estado_actividades">
+        <MappingFragment StoreEntitySet="estado_actividades">
+          <ScalarProperty Name="id_estado_actividad" ColumnName="id_estado_actividad" />
+          <ScalarProperty Name="volumen" ColumnName="volumen" />
+          <ScalarProperty Name="segundo_reproduccion" ColumnName="segundo_reproduccion" />
+          <ScalarProperty Name="velocidad" ColumnName="velocidad" />
+          <ScalarProperty Name="id_perfil_actividad" ColumnName="id_perfil_actividad" />
+          <ScalarProperty Name="id_audio" ColumnName="id_audio" />
+          <ScalarProperty Name="id_subtitulo" ColumnName="id_subtitulo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="generos">
+      <EntityTypeMapping TypeName="netflixdbModel.genero">
+        <MappingFragment StoreEntitySet="generos">
+          <ScalarProperty Name="id_genero" ColumnName="id_genero" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="idiomas">
+      <EntityTypeMapping TypeName="netflixdbModel.idioma">
+        <MappingFragment StoreEntitySet="idiomas">
+          <ScalarProperty Name="id_idioma" ColumnName="id_idioma" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="paises">
+      <EntityTypeMapping TypeName="netflixdbModel.pais">
+        <MappingFragment StoreEntitySet="paises">
+          <ScalarProperty Name="id_pais" ColumnName="id_pais" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="siglas" ColumnName="siglas" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="perfil_actividades">
+      <EntityTypeMapping TypeName="netflixdbModel.perfil_actividades">
+        <MappingFragment StoreEntitySet="perfil_actividades">
+          <ScalarProperty Name="id_perfil_actividad" ColumnName="id_perfil_actividad" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="id_perfil" ColumnName="id_perfil" />
+          <ScalarProperty Name="id_video" ColumnName="id_video" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="perfil_favoritos">
+      <EntityTypeMapping TypeName="netflixdbModel.perfil_favoritos">
+        <MappingFragment StoreEntitySet="perfil_favoritos">
+          <ScalarProperty Name="id_perfilfavorito" ColumnName="id_perfilfavorito" />
+          <ScalarProperty Name="id_perfil" ColumnName="id_perfil" />
+          <ScalarProperty Name="id_contenido_multimedia" ColumnName="id_contenido_multimedia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="perfiles">
+      <EntityTypeMapping TypeName="netflixdbModel.perfile">
+        <MappingFragment StoreEntitySet="perfiles">
+          <ScalarProperty Name="id_perfil" ColumnName="id_perfil" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="url_avatar" ColumnName="url_avatar" />
+          <ScalarProperty Name="bloqueado" ColumnName="bloqueado" />
+          <ScalarProperty Name="edad_clasificacion" ColumnName="edad_clasificacion" />
+          <ScalarProperty Name="autorep_serie" ColumnName="autorep_serie" />
+          <ScalarProperty Name="autorep_avances" ColumnName="autorep_avances" />
+          <ScalarProperty Name="id_idioma" ColumnName="id_idioma" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="planes">
+      <EntityTypeMapping TypeName="netflixdbModel.plane">
+        <MappingFragment StoreEntitySet="planes">
+          <ScalarProperty Name="id_plan" ColumnName="id_plan" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="costo_mensual" ColumnName="costo_mensual" />
+          <ScalarProperty Name="cant_disp_simult" ColumnName="cant_disp_simult" />
+          <ScalarProperty Name="cant_disp_desc" ColumnName="cant_disp_desc" />
+          <ScalarProperty Name="contenido_ilimitado" ColumnName="contenido_ilimitado" />
+          <ScalarProperty Name="multi_plataforma" ColumnName="multi_plataforma" />
+          <ScalarProperty Name="hd_disponible" ColumnName="hd_disponible" />
+          <ScalarProperty Name="uhd_disponible" ColumnName="uhd_disponible" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="propietarios">
+      <EntityTypeMapping TypeName="netflixdbModel.propietario">
+        <MappingFragment StoreEntitySet="propietarios">
+          <ScalarProperty Name="id_propietario" ColumnName="id_propietario" />
+          <ScalarProperty Name="nombres" ColumnName="nombres" />
+          <ScalarProperty Name="nro_telefono" ColumnName="nro_telefono" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="contrasenha" ColumnName="contrasenha" />
+          <ScalarProperty Name="id_pais" ColumnName="id_pais" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="subtitulos">
+      <EntityTypeMapping TypeName="netflixdbModel.subtitulo">
+        <MappingFragment StoreEntitySet="subtitulos">
+          <ScalarProperty Name="id_subtitulo" ColumnName="id_subtitulo" />
+          <ScalarProperty Name="url_ubicacion" ColumnName="url_ubicacion" />
+          <ScalarProperty Name="id_idioma" ColumnName="id_idioma" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="temporadas">
+      <EntityTypeMapping TypeName="netflixdbModel.temporada">
+        <MappingFragment StoreEntitySet="temporadas">
+          <ScalarProperty Name="id_temporada" ColumnName="id_temporada" />
+          <ScalarProperty Name="nro_temporada" ColumnName="nro_temporada" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="id_contenido_multimedia" ColumnName="id_contenido_multimedia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tipos_contenido_multimedia">
+      <EntityTypeMapping TypeName="netflixdbModel.tipos_contenido_multimedia">
+        <MappingFragment StoreEntitySet="tipos_contenido_multimedia">
+          <ScalarProperty Name="id_tcontenido_multimedia" ColumnName="id_tcontenido_multimedia" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="video_audios">
+      <EntityTypeMapping TypeName="netflixdbModel.video_audios">
+        <MappingFragment StoreEntitySet="video_audios">
+          <ScalarProperty Name="id_video_audio" ColumnName="id_video_audio" />
+          <ScalarProperty Name="id_audio" ColumnName="id_audio" />
+          <ScalarProperty Name="id_video" ColumnName="id_video" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="video_subtitulos">
+      <EntityTypeMapping TypeName="netflixdbModel.video_subtitulos">
+        <MappingFragment StoreEntitySet="video_subtitulos">
+          <ScalarProperty Name="id_video_subtitulo" ColumnName="id_video_subtitulo" />
+          <ScalarProperty Name="id_subtitulo" ColumnName="id_subtitulo" />
+          <ScalarProperty Name="id_video" ColumnName="id_video" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="videos">
+      <EntityTypeMapping TypeName="netflixdbModel.video">
+        <MappingFragment StoreEntitySet="videos">
+          <ScalarProperty Name="id_video" ColumnName="id_video" />
+          <ScalarProperty Name="titulo" ColumnName="titulo" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="url_ubicacion" ColumnName="url_ubicacion" />
+          <ScalarProperty Name="url_imagen" ColumnName="url_imagen" />
+          <ScalarProperty Name="url_trailer" ColumnName="url_trailer" />
+          <ScalarProperty Name="duracion_segundos" ColumnName="duracion_segundos" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

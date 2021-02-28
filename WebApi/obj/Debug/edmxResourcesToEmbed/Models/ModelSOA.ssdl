@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="soaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="alumnos">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombres" Type="varchar" MaxLength="200" />
+    <Property Name="apellidos" Type="varchar" MaxLength="200" />
+    <Property Name="edad" Type="int" />
+    <Property Name="fec_reg" Type="date" />
+    <Property Name="fec_act" Type="date" />
+    <Property Name="genero" Type="bit" />
+    <Property Name="tipodocumento_id" Type="int" />
+    <Property Name="dni" Type="varchar" MaxLength="8" />
+  </EntityType>
+  <EntityType Name="alumnos_cursos">
+    <Key>
+      <PropertyRef Name="curso_id" />
+      <PropertyRef Name="alumno_id" />
+    </Key>
+    <Property Name="curso_id" Type="int" Nullable="false" />
+    <Property Name="alumno_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="categorias">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="50" />
+    <Property Name="categoria_id" Type="int" />
+    <Property Name="fec_reg" Type="date" />
+    <Property Name="fec_act" Type="date" />
+    <Property Name="nivel" Type="int" />
+    <Property Name="orden" Type="int" />
+  </EntityType>
+  <EntityType Name="cursos">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombres" Type="varchar" MaxLength="200" />
+    <Property Name="fec_reg" Type="date" />
+    <Property Name="fec_act" Type="date" />
+    <Property Name="creditos" Type="int" />
+    <Property Name="categoria_id" Type="int" />
+  </EntityType>
+  <EntityType Name="notas">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="alumno_id" Type="int" Nullable="false" />
+    <Property Name="curso_id" Type="int" Nullable="false" />
+    <Property Name="estado_id" Type="int" />
+    <Property Name="nota1" Type="int" />
+    <Property Name="nota2" Type="int" />
+    <Property Name="nota3" Type="int" />
+    <Property Name="nota4" Type="int" />
+    <Property Name="notafinal" Type="int" />
+  </EntityType>
+  <Association Name="FK__alumnos__tipodoc__182C9B23">
+    <End Role="categorias" Type="Self.categorias" Multiplicity="0..1" />
+    <End Role="alumnos" Type="Self.alumnos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categorias">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="alumnos">
+        <PropertyRef Name="tipodocumento_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__categoria__categ__1B0907CE">
+    <End Role="categorias" Type="Self.categorias" Multiplicity="0..1" />
+    <End Role="categorias1" Type="Self.categorias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categorias">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="categorias1">
+        <PropertyRef Name="categoria_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__cursos__categori__1ED998B2">
+    <End Role="categorias" Type="Self.categorias" Multiplicity="0..1" />
+    <End Role="cursos" Type="Self.cursos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categorias">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="cursos">
+        <PropertyRef Name="categoria_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_alumnos_cursos_alumnos">
+    <End Role="alumnos" Type="Self.alumnos" Multiplicity="1" />
+    <End Role="alumnos_cursos" Type="Self.alumnos_cursos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="alumnos">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="alumnos_cursos">
+        <PropertyRef Name="alumno_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_alumnos_cursos_cursos">
+    <End Role="cursos" Type="Self.cursos" Multiplicity="1" />
+    <End Role="alumnos_cursos" Type="Self.alumnos_cursos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cursos">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="alumnos_cursos">
+        <PropertyRef Name="curso_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_notas_alumnos">
+    <End Role="alumnos" Type="Self.alumnos" Multiplicity="1" />
+    <End Role="notas" Type="Self.notas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="alumnos">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="notas">
+        <PropertyRef Name="alumno_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_notas_categorias">
+    <End Role="categorias" Type="Self.categorias" Multiplicity="0..1" />
+    <End Role="notas" Type="Self.notas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categorias">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="notas">
+        <PropertyRef Name="estado_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_notas_cursos">
+    <End Role="cursos" Type="Self.cursos" Multiplicity="1" />
+    <End Role="notas" Type="Self.notas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cursos">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="notas">
+        <PropertyRef Name="curso_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="soaModelStoreContainer">
+    <EntitySet Name="alumnos" EntityType="Self.alumnos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="alumnos_cursos" EntityType="Self.alumnos_cursos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="categorias" EntityType="Self.categorias" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="cursos" EntityType="Self.cursos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="notas" EntityType="Self.notas" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__alumnos__tipodoc__182C9B23" Association="Self.FK__alumnos__tipodoc__182C9B23">
+      <End Role="categorias" EntitySet="categorias" />
+      <End Role="alumnos" EntitySet="alumnos" />
+    </AssociationSet>
+    <AssociationSet Name="FK__categoria__categ__1B0907CE" Association="Self.FK__categoria__categ__1B0907CE">
+      <End Role="categorias" EntitySet="categorias" />
+      <End Role="categorias1" EntitySet="categorias" />
+    </AssociationSet>
+    <AssociationSet Name="FK__cursos__categori__1ED998B2" Association="Self.FK__cursos__categori__1ED998B2">
+      <End Role="categorias" EntitySet="categorias" />
+      <End Role="cursos" EntitySet="cursos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_alumnos_cursos_alumnos" Association="Self.FK_alumnos_cursos_alumnos">
+      <End Role="alumnos" EntitySet="alumnos" />
+      <End Role="alumnos_cursos" EntitySet="alumnos_cursos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_alumnos_cursos_cursos" Association="Self.FK_alumnos_cursos_cursos">
+      <End Role="cursos" EntitySet="cursos" />
+      <End Role="alumnos_cursos" EntitySet="alumnos_cursos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_notas_alumnos" Association="Self.FK_notas_alumnos">
+      <End Role="alumnos" EntitySet="alumnos" />
+      <End Role="notas" EntitySet="notas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_notas_categorias" Association="Self.FK_notas_categorias">
+      <End Role="categorias" EntitySet="categorias" />
+      <End Role="notas" EntitySet="notas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_notas_cursos" Association="Self.FK_notas_cursos">
+      <End Role="cursos" EntitySet="cursos" />
+      <End Role="notas" EntitySet="notas" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

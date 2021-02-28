@@ -1,0 +1,691 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="netflixdbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="audio">
+    <Key>
+      <PropertyRef Name="id_audio" />
+    </Key>
+    <Property Name="id_audio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="url_ubicacion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="id_idioma" Type="Int32" />
+    <NavigationProperty Name="idioma" Relationship="Self.FK_audios_idiomas" FromRole="audios" ToRole="idiomas" />
+    <NavigationProperty Name="estado_actividades" Relationship="Self.FK_estado_actividades_audios" FromRole="audios" ToRole="estado_actividades" />
+    <NavigationProperty Name="video_audios" Relationship="Self.FK_video_audios_audios" FromRole="audios" ToRole="video_audios" />
+  </EntityType>
+  <EntityType Name="capitulo">
+    <Key>
+      <PropertyRef Name="id_capitulo" />
+    </Key>
+    <Property Name="id_capitulo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nro_capitulo" Type="Int32" />
+    <Property Name="id_temporada" Type="Int32" />
+    <Property Name="id_video" Type="Int32" />
+    <NavigationProperty Name="temporada" Relationship="Self.FK_capitulos_contenido_multimedia_temporadas" FromRole="capitulos" ToRole="temporadas" />
+    <NavigationProperty Name="video" Relationship="Self.FK_capitulos_videos" FromRole="capitulos" ToRole="videos" />
+  </EntityType>
+  <EntityType Name="contenido_multimedia_generos">
+    <Key>
+      <PropertyRef Name="id_cm_genero" />
+    </Key>
+    <Property Name="id_cm_genero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_genero" Type="Int32" />
+    <Property Name="id_contenido_multimedia" Type="Int32" />
+    <NavigationProperty Name="contenidos_multimedia" Relationship="Self.FK_contenido_multimedia_generos_contenidos_multimedia" FromRole="contenido_multimedia_generos" ToRole="contenidos_multimedia" />
+    <NavigationProperty Name="genero" Relationship="Self.FK_contenido_multimedia_generos_generos" FromRole="contenido_multimedia_generos" ToRole="generos" />
+  </EntityType>
+  <EntityType Name="contenidos_multimedia">
+    <Key>
+      <PropertyRef Name="id_contenido_multimedia" />
+    </Key>
+    <Property Name="id_contenido_multimedia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="edad_clasificacion" Type="Int32" />
+    <Property Name="anho_publicacion" Type="Int32" />
+    <Property Name="director" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="id_video" Type="Int32" />
+    <Property Name="id_tcontenido_multimedia" Type="Int32" />
+    <NavigationProperty Name="contenido_multimedia_generos" Relationship="Self.FK_contenido_multimedia_generos_contenidos_multimedia" FromRole="contenidos_multimedia" ToRole="contenido_multimedia_generos" />
+    <NavigationProperty Name="temporadas" Relationship="Self.FK_contenido_multimedia_temporadas_contenidos_multimedia" FromRole="contenidos_multimedia" ToRole="temporadas" />
+    <NavigationProperty Name="tipos_contenido_multimedia" Relationship="Self.FK_contenidos_multimedia_tipos_contenido_multimedia" FromRole="contenidos_multimedia" ToRole="tipos_contenido_multimedia" />
+    <NavigationProperty Name="video" Relationship="Self.FK_contenidos_multimedia_videos" FromRole="contenidos_multimedia" ToRole="videos" />
+    <NavigationProperty Name="perfil_favoritos" Relationship="Self.FK_perfil_lista_contenidos_multimedia" FromRole="contenidos_multimedia" ToRole="perfil_favoritos" />
+  </EntityType>
+  <EntityType Name="cuenta_perfiles">
+    <Key>
+      <PropertyRef Name="id_cuentaperfil" />
+    </Key>
+    <Property Name="id_cuentaperfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_cuenta" Type="Int32" />
+    <Property Name="id_perfil" Type="Int32" />
+    <NavigationProperty Name="cuenta" Relationship="Self.FK_cuenta_perfiles_cuentas" FromRole="cuenta_perfiles" ToRole="cuentas" />
+    <NavigationProperty Name="perfile" Relationship="Self.FK_cuenta_perfiles_perfiles" FromRole="cuenta_perfiles" ToRole="perfiles" />
+  </EntityType>
+  <EntityType Name="cuenta">
+    <Key>
+      <PropertyRef Name="id_cuenta" />
+    </Key>
+    <Property Name="id_cuenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+    <Property Name="fecha_facturacion" Type="DateTime" Precision="3" />
+    <Property Name="activo" Type="Boolean" />
+    <Property Name="id_propietario" Type="Int32" Nullable="false" />
+    <Property Name="id_plan" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="cuenta_perfiles" Relationship="Self.FK_cuenta_perfiles_cuentas" FromRole="cuentas" ToRole="cuenta_perfiles" />
+    <NavigationProperty Name="plane" Relationship="Self.FK_cuentas_planes" FromRole="cuentas" ToRole="planes" />
+    <NavigationProperty Name="propietario" Relationship="Self.FK_cuentas_propietarios" FromRole="cuentas" ToRole="propietarios" />
+  </EntityType>
+  <EntityType Name="estado_actividades">
+    <Key>
+      <PropertyRef Name="id_estado_actividad" />
+    </Key>
+    <Property Name="id_estado_actividad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="volumen" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="segundo_reproduccion" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="velocidad" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="id_perfil_actividad" Type="Int32" />
+    <Property Name="id_audio" Type="Int32" />
+    <Property Name="id_subtitulo" Type="Int32" />
+    <NavigationProperty Name="audio" Relationship="Self.FK_estado_actividades_audios" FromRole="estado_actividades" ToRole="audios" />
+    <NavigationProperty Name="perfil_actividades" Relationship="Self.FK_estado_actividades_perfil_actividades" FromRole="estado_actividades" ToRole="perfil_actividades" />
+    <NavigationProperty Name="subtitulo" Relationship="Self.FK_estado_actividades_subtitulos" FromRole="estado_actividades" ToRole="subtitulos" />
+  </EntityType>
+  <EntityType Name="genero">
+    <Key>
+      <PropertyRef Name="id_genero" />
+    </Key>
+    <Property Name="id_genero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="contenido_multimedia_generos" Relationship="Self.FK_contenido_multimedia_generos_generos" FromRole="generos" ToRole="contenido_multimedia_generos" />
+  </EntityType>
+  <EntityType Name="idioma">
+    <Key>
+      <PropertyRef Name="id_idioma" />
+    </Key>
+    <Property Name="id_idioma" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="audios" Relationship="Self.FK_audios_idiomas" FromRole="idiomas" ToRole="audios" />
+    <NavigationProperty Name="perfiles" Relationship="Self.FK_perfiles_idiomas" FromRole="idiomas" ToRole="perfiles" />
+    <NavigationProperty Name="subtitulos" Relationship="Self.FK_subtitulos_idiomas" FromRole="idiomas" ToRole="subtitulos" />
+  </EntityType>
+  <EntityType Name="pais">
+    <Key>
+      <PropertyRef Name="id_pais" />
+    </Key>
+    <Property Name="id_pais" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="siglas" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="propietarios" Relationship="Self.FK_propietarios_paises" FromRole="paises" ToRole="propietarios" />
+  </EntityType>
+  <EntityType Name="perfil_actividades">
+    <Key>
+      <PropertyRef Name="id_perfil_actividad" />
+    </Key>
+    <Property Name="id_perfil_actividad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fecha" Type="DateTime" Precision="3" />
+    <Property Name="id_perfil" Type="Int32" />
+    <Property Name="id_video" Type="Int32" />
+    <NavigationProperty Name="estado_actividades" Relationship="Self.FK_estado_actividades_perfil_actividades" FromRole="perfil_actividades" ToRole="estado_actividades" />
+    <NavigationProperty Name="perfile" Relationship="Self.FK_perfil_actividades_perfiles" FromRole="perfil_actividades" ToRole="perfiles" />
+    <NavigationProperty Name="video" Relationship="Self.FK_perfil_actividades_videos" FromRole="perfil_actividades" ToRole="videos" />
+  </EntityType>
+  <EntityType Name="perfil_favoritos">
+    <Key>
+      <PropertyRef Name="id_perfilfavorito" />
+    </Key>
+    <Property Name="id_perfilfavorito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_perfil" Type="Int32" />
+    <Property Name="id_contenido_multimedia" Type="Int32" />
+    <NavigationProperty Name="contenidos_multimedia" Relationship="Self.FK_perfil_lista_contenidos_multimedia" FromRole="perfil_favoritos" ToRole="contenidos_multimedia" />
+    <NavigationProperty Name="perfile" Relationship="Self.FK_perfil_lista_perfiles" FromRole="perfil_favoritos" ToRole="perfiles" />
+  </EntityType>
+  <EntityType Name="perfile">
+    <Key>
+      <PropertyRef Name="id_perfil" />
+    </Key>
+    <Property Name="id_perfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="url_avatar" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="bloqueado" Type="Boolean" />
+    <Property Name="edad_clasificacion" Type="Int32" />
+    <Property Name="autorep_serie" Type="Boolean" />
+    <Property Name="autorep_avances" Type="Boolean" />
+    <Property Name="id_idioma" Type="Int32" />
+    <NavigationProperty Name="cuenta_perfiles" Relationship="Self.FK_cuenta_perfiles_perfiles" FromRole="perfiles" ToRole="cuenta_perfiles" />
+    <NavigationProperty Name="idioma" Relationship="Self.FK_perfiles_idiomas" FromRole="perfiles" ToRole="idiomas" />
+    <NavigationProperty Name="perfil_actividades" Relationship="Self.FK_perfil_actividades_perfiles" FromRole="perfiles" ToRole="perfil_actividades" />
+    <NavigationProperty Name="perfil_favoritos" Relationship="Self.FK_perfil_lista_perfiles" FromRole="perfiles" ToRole="perfil_favoritos" />
+  </EntityType>
+  <EntityType Name="plane">
+    <Key>
+      <PropertyRef Name="id_plan" />
+    </Key>
+    <Property Name="id_plan" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="costo_mensual" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="cant_disp_simult" Type="Int32" />
+    <Property Name="cant_disp_desc" Type="Int32" />
+    <Property Name="contenido_ilimitado" Type="Boolean" />
+    <Property Name="multi_plataforma" Type="Boolean" />
+    <Property Name="hd_disponible" Type="Boolean" />
+    <Property Name="uhd_disponible" Type="Boolean" />
+    <NavigationProperty Name="cuentas" Relationship="Self.FK_cuentas_planes" FromRole="planes" ToRole="cuentas" />
+  </EntityType>
+  <EntityType Name="propietario">
+    <Key>
+      <PropertyRef Name="id_propietario" />
+    </Key>
+    <Property Name="id_propietario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombres" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="nro_telefono" Type="String" MaxLength="18" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="contrasenha" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="id_pais" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="cuentas" Relationship="Self.FK_cuentas_propietarios" FromRole="propietarios" ToRole="cuentas" />
+    <NavigationProperty Name="pais" Relationship="Self.FK_propietarios_paises" FromRole="propietarios" ToRole="paises" />
+  </EntityType>
+  <EntityType Name="subtitulo">
+    <Key>
+      <PropertyRef Name="id_subtitulo" />
+    </Key>
+    <Property Name="id_subtitulo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="url_ubicacion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="id_idioma" Type="Int32" />
+    <NavigationProperty Name="estado_actividades" Relationship="Self.FK_estado_actividades_subtitulos" FromRole="subtitulos" ToRole="estado_actividades" />
+    <NavigationProperty Name="idioma" Relationship="Self.FK_subtitulos_idiomas" FromRole="subtitulos" ToRole="idiomas" />
+    <NavigationProperty Name="video_subtitulos" Relationship="Self.FK_video_subtitulos_subtitulos" FromRole="subtitulos" ToRole="video_subtitulos" />
+  </EntityType>
+  <EntityType Name="temporada">
+    <Key>
+      <PropertyRef Name="id_temporada" />
+    </Key>
+    <Property Name="id_temporada" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nro_temporada" Type="Int32" />
+    <Property Name="nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="id_contenido_multimedia" Type="Int32" />
+    <NavigationProperty Name="capitulos" Relationship="Self.FK_capitulos_contenido_multimedia_temporadas" FromRole="temporadas" ToRole="capitulos" />
+    <NavigationProperty Name="contenidos_multimedia" Relationship="Self.FK_contenido_multimedia_temporadas_contenidos_multimedia" FromRole="temporadas" ToRole="contenidos_multimedia" />
+  </EntityType>
+  <EntityType Name="tipos_contenido_multimedia">
+    <Key>
+      <PropertyRef Name="id_tcontenido_multimedia" />
+    </Key>
+    <Property Name="id_tcontenido_multimedia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="contenidos_multimedia" Relationship="Self.FK_contenidos_multimedia_tipos_contenido_multimedia" FromRole="tipos_contenido_multimedia" ToRole="contenidos_multimedia" />
+  </EntityType>
+  <EntityType Name="video_audios">
+    <Key>
+      <PropertyRef Name="id_video_audio" />
+    </Key>
+    <Property Name="id_video_audio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_audio" Type="Int32" />
+    <Property Name="id_video" Type="Int32" />
+    <NavigationProperty Name="audio" Relationship="Self.FK_video_audios_audios" FromRole="video_audios" ToRole="audios" />
+    <NavigationProperty Name="video" Relationship="Self.FK_video_audios_videos" FromRole="video_audios" ToRole="videos" />
+  </EntityType>
+  <EntityType Name="video_subtitulos">
+    <Key>
+      <PropertyRef Name="id_video_subtitulo" />
+    </Key>
+    <Property Name="id_video_subtitulo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_subtitulo" Type="Int32" />
+    <Property Name="id_video" Type="Int32" />
+    <NavigationProperty Name="subtitulo" Relationship="Self.FK_video_subtitulos_subtitulos" FromRole="video_subtitulos" ToRole="subtitulos" />
+    <NavigationProperty Name="video" Relationship="Self.FK_video_subtitulos_videos" FromRole="video_subtitulos" ToRole="videos" />
+  </EntityType>
+  <EntityType Name="video">
+    <Key>
+      <PropertyRef Name="id_video" />
+    </Key>
+    <Property Name="id_video" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="titulo" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="url_ubicacion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="url_imagen" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="url_trailer" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="duracion_segundos" Type="Decimal" Precision="18" Scale="2" />
+    <NavigationProperty Name="capitulos" Relationship="Self.FK_capitulos_videos" FromRole="videos" ToRole="capitulos" />
+    <NavigationProperty Name="contenidos_multimedia" Relationship="Self.FK_contenidos_multimedia_videos" FromRole="videos" ToRole="contenidos_multimedia" />
+    <NavigationProperty Name="perfil_actividades" Relationship="Self.FK_perfil_actividades_videos" FromRole="videos" ToRole="perfil_actividades" />
+    <NavigationProperty Name="video_audios" Relationship="Self.FK_video_audios_videos" FromRole="videos" ToRole="video_audios" />
+    <NavigationProperty Name="video_subtitulos" Relationship="Self.FK_video_subtitulos_videos" FromRole="videos" ToRole="video_subtitulos" />
+  </EntityType>
+  <Association Name="FK_audios_idiomas">
+    <End Role="idiomas" Type="Self.idioma" Multiplicity="0..1" />
+    <End Role="audios" Type="Self.audio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="idiomas">
+        <PropertyRef Name="id_idioma" />
+      </Principal>
+      <Dependent Role="audios">
+        <PropertyRef Name="id_idioma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_estado_actividades_audios">
+    <End Role="audios" Type="Self.audio" Multiplicity="0..1" />
+    <End Role="estado_actividades" Type="Self.estado_actividades" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="audios">
+        <PropertyRef Name="id_audio" />
+      </Principal>
+      <Dependent Role="estado_actividades">
+        <PropertyRef Name="id_audio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_video_audios_audios">
+    <End Role="audios" Type="Self.audio" Multiplicity="0..1" />
+    <End Role="video_audios" Type="Self.video_audios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="audios">
+        <PropertyRef Name="id_audio" />
+      </Principal>
+      <Dependent Role="video_audios">
+        <PropertyRef Name="id_audio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_capitulos_contenido_multimedia_temporadas">
+    <End Role="temporadas" Type="Self.temporada" Multiplicity="0..1" />
+    <End Role="capitulos" Type="Self.capitulo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="temporadas">
+        <PropertyRef Name="id_temporada" />
+      </Principal>
+      <Dependent Role="capitulos">
+        <PropertyRef Name="id_temporada" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_capitulos_videos">
+    <End Role="videos" Type="Self.video" Multiplicity="0..1" />
+    <End Role="capitulos" Type="Self.capitulo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="videos">
+        <PropertyRef Name="id_video" />
+      </Principal>
+      <Dependent Role="capitulos">
+        <PropertyRef Name="id_video" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_contenido_multimedia_generos_contenidos_multimedia">
+    <End Role="contenidos_multimedia" Type="Self.contenidos_multimedia" Multiplicity="0..1" />
+    <End Role="contenido_multimedia_generos" Type="Self.contenido_multimedia_generos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="contenidos_multimedia">
+        <PropertyRef Name="id_contenido_multimedia" />
+      </Principal>
+      <Dependent Role="contenido_multimedia_generos">
+        <PropertyRef Name="id_contenido_multimedia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_contenido_multimedia_generos_generos">
+    <End Role="generos" Type="Self.genero" Multiplicity="0..1" />
+    <End Role="contenido_multimedia_generos" Type="Self.contenido_multimedia_generos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="generos">
+        <PropertyRef Name="id_genero" />
+      </Principal>
+      <Dependent Role="contenido_multimedia_generos">
+        <PropertyRef Name="id_genero" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_contenido_multimedia_temporadas_contenidos_multimedia">
+    <End Role="contenidos_multimedia" Type="Self.contenidos_multimedia" Multiplicity="0..1" />
+    <End Role="temporadas" Type="Self.temporada" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="contenidos_multimedia">
+        <PropertyRef Name="id_contenido_multimedia" />
+      </Principal>
+      <Dependent Role="temporadas">
+        <PropertyRef Name="id_contenido_multimedia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_contenidos_multimedia_tipos_contenido_multimedia">
+    <End Role="tipos_contenido_multimedia" Type="Self.tipos_contenido_multimedia" Multiplicity="0..1" />
+    <End Role="contenidos_multimedia" Type="Self.contenidos_multimedia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tipos_contenido_multimedia">
+        <PropertyRef Name="id_tcontenido_multimedia" />
+      </Principal>
+      <Dependent Role="contenidos_multimedia">
+        <PropertyRef Name="id_tcontenido_multimedia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_contenidos_multimedia_videos">
+    <End Role="videos" Type="Self.video" Multiplicity="0..1" />
+    <End Role="contenidos_multimedia" Type="Self.contenidos_multimedia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="videos">
+        <PropertyRef Name="id_video" />
+      </Principal>
+      <Dependent Role="contenidos_multimedia">
+        <PropertyRef Name="id_video" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_perfil_lista_contenidos_multimedia">
+    <End Role="contenidos_multimedia" Type="Self.contenidos_multimedia" Multiplicity="0..1" />
+    <End Role="perfil_favoritos" Type="Self.perfil_favoritos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="contenidos_multimedia">
+        <PropertyRef Name="id_contenido_multimedia" />
+      </Principal>
+      <Dependent Role="perfil_favoritos">
+        <PropertyRef Name="id_contenido_multimedia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_cuenta_perfiles_cuentas">
+    <End Role="cuentas" Type="Self.cuenta" Multiplicity="0..1" />
+    <End Role="cuenta_perfiles" Type="Self.cuenta_perfiles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cuentas">
+        <PropertyRef Name="id_cuenta" />
+      </Principal>
+      <Dependent Role="cuenta_perfiles">
+        <PropertyRef Name="id_cuenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_cuenta_perfiles_perfiles">
+    <End Role="perfiles" Type="Self.perfile" Multiplicity="0..1" />
+    <End Role="cuenta_perfiles" Type="Self.cuenta_perfiles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="perfiles">
+        <PropertyRef Name="id_perfil" />
+      </Principal>
+      <Dependent Role="cuenta_perfiles">
+        <PropertyRef Name="id_perfil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_cuentas_planes">
+    <End Role="planes" Type="Self.plane" Multiplicity="1" />
+    <End Role="cuentas" Type="Self.cuenta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="planes">
+        <PropertyRef Name="id_plan" />
+      </Principal>
+      <Dependent Role="cuentas">
+        <PropertyRef Name="id_plan" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_cuentas_propietarios">
+    <End Role="propietarios" Type="Self.propietario" Multiplicity="1" />
+    <End Role="cuentas" Type="Self.cuenta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="propietarios">
+        <PropertyRef Name="id_propietario" />
+      </Principal>
+      <Dependent Role="cuentas">
+        <PropertyRef Name="id_propietario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_estado_actividades_perfil_actividades">
+    <End Role="perfil_actividades" Type="Self.perfil_actividades" Multiplicity="0..1" />
+    <End Role="estado_actividades" Type="Self.estado_actividades" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="perfil_actividades">
+        <PropertyRef Name="id_perfil_actividad" />
+      </Principal>
+      <Dependent Role="estado_actividades">
+        <PropertyRef Name="id_perfil_actividad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_estado_actividades_subtitulos">
+    <End Role="subtitulos" Type="Self.subtitulo" Multiplicity="0..1" />
+    <End Role="estado_actividades" Type="Self.estado_actividades" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="subtitulos">
+        <PropertyRef Name="id_subtitulo" />
+      </Principal>
+      <Dependent Role="estado_actividades">
+        <PropertyRef Name="id_subtitulo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_perfiles_idiomas">
+    <End Role="idiomas" Type="Self.idioma" Multiplicity="0..1" />
+    <End Role="perfiles" Type="Self.perfile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="idiomas">
+        <PropertyRef Name="id_idioma" />
+      </Principal>
+      <Dependent Role="perfiles">
+        <PropertyRef Name="id_idioma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_subtitulos_idiomas">
+    <End Role="idiomas" Type="Self.idioma" Multiplicity="0..1" />
+    <End Role="subtitulos" Type="Self.subtitulo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="idiomas">
+        <PropertyRef Name="id_idioma" />
+      </Principal>
+      <Dependent Role="subtitulos">
+        <PropertyRef Name="id_idioma" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_propietarios_paises">
+    <End Role="paises" Type="Self.pais" Multiplicity="1" />
+    <End Role="propietarios" Type="Self.propietario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="paises">
+        <PropertyRef Name="id_pais" />
+      </Principal>
+      <Dependent Role="propietarios">
+        <PropertyRef Name="id_pais" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_perfil_actividades_perfiles">
+    <End Role="perfiles" Type="Self.perfile" Multiplicity="0..1" />
+    <End Role="perfil_actividades" Type="Self.perfil_actividades" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="perfiles">
+        <PropertyRef Name="id_perfil" />
+      </Principal>
+      <Dependent Role="perfil_actividades">
+        <PropertyRef Name="id_perfil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_perfil_actividades_videos">
+    <End Role="videos" Type="Self.video" Multiplicity="0..1" />
+    <End Role="perfil_actividades" Type="Self.perfil_actividades" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="videos">
+        <PropertyRef Name="id_video" />
+      </Principal>
+      <Dependent Role="perfil_actividades">
+        <PropertyRef Name="id_video" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_perfil_lista_perfiles">
+    <End Role="perfiles" Type="Self.perfile" Multiplicity="0..1" />
+    <End Role="perfil_favoritos" Type="Self.perfil_favoritos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="perfiles">
+        <PropertyRef Name="id_perfil" />
+      </Principal>
+      <Dependent Role="perfil_favoritos">
+        <PropertyRef Name="id_perfil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_video_subtitulos_subtitulos">
+    <End Role="subtitulos" Type="Self.subtitulo" Multiplicity="0..1" />
+    <End Role="video_subtitulos" Type="Self.video_subtitulos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="subtitulos">
+        <PropertyRef Name="id_subtitulo" />
+      </Principal>
+      <Dependent Role="video_subtitulos">
+        <PropertyRef Name="id_subtitulo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_video_audios_videos">
+    <End Role="videos" Type="Self.video" Multiplicity="0..1" />
+    <End Role="video_audios" Type="Self.video_audios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="videos">
+        <PropertyRef Name="id_video" />
+      </Principal>
+      <Dependent Role="video_audios">
+        <PropertyRef Name="id_video" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_video_subtitulos_videos">
+    <End Role="videos" Type="Self.video" Multiplicity="0..1" />
+    <End Role="video_subtitulos" Type="Self.video_subtitulos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="videos">
+        <PropertyRef Name="id_video" />
+      </Principal>
+      <Dependent Role="video_subtitulos">
+        <PropertyRef Name="id_video" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="netflixdbEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="audios" EntityType="Self.audio" />
+    <EntitySet Name="capitulos" EntityType="Self.capitulo" />
+    <EntitySet Name="contenido_multimedia_generos" EntityType="Self.contenido_multimedia_generos" />
+    <EntitySet Name="contenidos_multimedia" EntityType="Self.contenidos_multimedia" />
+    <EntitySet Name="cuenta_perfiles" EntityType="Self.cuenta_perfiles" />
+    <EntitySet Name="cuentas" EntityType="Self.cuenta" />
+    <EntitySet Name="estado_actividades" EntityType="Self.estado_actividades" />
+    <EntitySet Name="generos" EntityType="Self.genero" />
+    <EntitySet Name="idiomas" EntityType="Self.idioma" />
+    <EntitySet Name="paises" EntityType="Self.pais" />
+    <EntitySet Name="perfil_actividades" EntityType="Self.perfil_actividades" />
+    <EntitySet Name="perfil_favoritos" EntityType="Self.perfil_favoritos" />
+    <EntitySet Name="perfiles" EntityType="Self.perfile" />
+    <EntitySet Name="planes" EntityType="Self.plane" />
+    <EntitySet Name="propietarios" EntityType="Self.propietario" />
+    <EntitySet Name="subtitulos" EntityType="Self.subtitulo" />
+    <EntitySet Name="temporadas" EntityType="Self.temporada" />
+    <EntitySet Name="tipos_contenido_multimedia" EntityType="Self.tipos_contenido_multimedia" />
+    <EntitySet Name="video_audios" EntityType="Self.video_audios" />
+    <EntitySet Name="video_subtitulos" EntityType="Self.video_subtitulos" />
+    <EntitySet Name="videos" EntityType="Self.video" />
+    <AssociationSet Name="FK_audios_idiomas" Association="Self.FK_audios_idiomas">
+      <End Role="idiomas" EntitySet="idiomas" />
+      <End Role="audios" EntitySet="audios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_estado_actividades_audios" Association="Self.FK_estado_actividades_audios">
+      <End Role="audios" EntitySet="audios" />
+      <End Role="estado_actividades" EntitySet="estado_actividades" />
+    </AssociationSet>
+    <AssociationSet Name="FK_video_audios_audios" Association="Self.FK_video_audios_audios">
+      <End Role="audios" EntitySet="audios" />
+      <End Role="video_audios" EntitySet="video_audios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_capitulos_contenido_multimedia_temporadas" Association="Self.FK_capitulos_contenido_multimedia_temporadas">
+      <End Role="temporadas" EntitySet="temporadas" />
+      <End Role="capitulos" EntitySet="capitulos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_capitulos_videos" Association="Self.FK_capitulos_videos">
+      <End Role="videos" EntitySet="videos" />
+      <End Role="capitulos" EntitySet="capitulos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_contenido_multimedia_generos_contenidos_multimedia" Association="Self.FK_contenido_multimedia_generos_contenidos_multimedia">
+      <End Role="contenidos_multimedia" EntitySet="contenidos_multimedia" />
+      <End Role="contenido_multimedia_generos" EntitySet="contenido_multimedia_generos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_contenido_multimedia_generos_generos" Association="Self.FK_contenido_multimedia_generos_generos">
+      <End Role="generos" EntitySet="generos" />
+      <End Role="contenido_multimedia_generos" EntitySet="contenido_multimedia_generos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_contenido_multimedia_temporadas_contenidos_multimedia" Association="Self.FK_contenido_multimedia_temporadas_contenidos_multimedia">
+      <End Role="contenidos_multimedia" EntitySet="contenidos_multimedia" />
+      <End Role="temporadas" EntitySet="temporadas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_contenidos_multimedia_tipos_contenido_multimedia" Association="Self.FK_contenidos_multimedia_tipos_contenido_multimedia">
+      <End Role="tipos_contenido_multimedia" EntitySet="tipos_contenido_multimedia" />
+      <End Role="contenidos_multimedia" EntitySet="contenidos_multimedia" />
+    </AssociationSet>
+    <AssociationSet Name="FK_contenidos_multimedia_videos" Association="Self.FK_contenidos_multimedia_videos">
+      <End Role="videos" EntitySet="videos" />
+      <End Role="contenidos_multimedia" EntitySet="contenidos_multimedia" />
+    </AssociationSet>
+    <AssociationSet Name="FK_perfil_lista_contenidos_multimedia" Association="Self.FK_perfil_lista_contenidos_multimedia">
+      <End Role="contenidos_multimedia" EntitySet="contenidos_multimedia" />
+      <End Role="perfil_favoritos" EntitySet="perfil_favoritos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_cuenta_perfiles_cuentas" Association="Self.FK_cuenta_perfiles_cuentas">
+      <End Role="cuentas" EntitySet="cuentas" />
+      <End Role="cuenta_perfiles" EntitySet="cuenta_perfiles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_cuenta_perfiles_perfiles" Association="Self.FK_cuenta_perfiles_perfiles">
+      <End Role="perfiles" EntitySet="perfiles" />
+      <End Role="cuenta_perfiles" EntitySet="cuenta_perfiles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_cuentas_planes" Association="Self.FK_cuentas_planes">
+      <End Role="planes" EntitySet="planes" />
+      <End Role="cuentas" EntitySet="cuentas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_cuentas_propietarios" Association="Self.FK_cuentas_propietarios">
+      <End Role="propietarios" EntitySet="propietarios" />
+      <End Role="cuentas" EntitySet="cuentas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_estado_actividades_perfil_actividades" Association="Self.FK_estado_actividades_perfil_actividades">
+      <End Role="perfil_actividades" EntitySet="perfil_actividades" />
+      <End Role="estado_actividades" EntitySet="estado_actividades" />
+    </AssociationSet>
+    <AssociationSet Name="FK_estado_actividades_subtitulos" Association="Self.FK_estado_actividades_subtitulos">
+      <End Role="subtitulos" EntitySet="subtitulos" />
+      <End Role="estado_actividades" EntitySet="estado_actividades" />
+    </AssociationSet>
+    <AssociationSet Name="FK_perfiles_idiomas" Association="Self.FK_perfiles_idiomas">
+      <End Role="idiomas" EntitySet="idiomas" />
+      <End Role="perfiles" EntitySet="perfiles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_subtitulos_idiomas" Association="Self.FK_subtitulos_idiomas">
+      <End Role="idiomas" EntitySet="idiomas" />
+      <End Role="subtitulos" EntitySet="subtitulos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_propietarios_paises" Association="Self.FK_propietarios_paises">
+      <End Role="paises" EntitySet="paises" />
+      <End Role="propietarios" EntitySet="propietarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_perfil_actividades_perfiles" Association="Self.FK_perfil_actividades_perfiles">
+      <End Role="perfiles" EntitySet="perfiles" />
+      <End Role="perfil_actividades" EntitySet="perfil_actividades" />
+    </AssociationSet>
+    <AssociationSet Name="FK_perfil_actividades_videos" Association="Self.FK_perfil_actividades_videos">
+      <End Role="videos" EntitySet="videos" />
+      <End Role="perfil_actividades" EntitySet="perfil_actividades" />
+    </AssociationSet>
+    <AssociationSet Name="FK_perfil_lista_perfiles" Association="Self.FK_perfil_lista_perfiles">
+      <End Role="perfiles" EntitySet="perfiles" />
+      <End Role="perfil_favoritos" EntitySet="perfil_favoritos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_video_subtitulos_subtitulos" Association="Self.FK_video_subtitulos_subtitulos">
+      <End Role="subtitulos" EntitySet="subtitulos" />
+      <End Role="video_subtitulos" EntitySet="video_subtitulos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_video_audios_videos" Association="Self.FK_video_audios_videos">
+      <End Role="videos" EntitySet="videos" />
+      <End Role="video_audios" EntitySet="video_audios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_video_subtitulos_videos" Association="Self.FK_video_subtitulos_videos">
+      <End Role="videos" EntitySet="videos" />
+      <End Role="video_subtitulos" EntitySet="video_subtitulos" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
