@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using WebApi.Transfers;
+using System.Data.Entity;
 
 namespace WebApi.Models
 {
@@ -64,7 +65,7 @@ namespace WebApi.Models
 			};
 			db.alumnos.Add(alumno);
 			db.SaveChanges();
-			return null;
+			return alumnos.ObtenerAlumno(alumno.id);
 		}
 		public static IEnumerable<alumnodto> ListarAlumnosPorDocumento(int tipodocumento_id)
 		{
@@ -83,5 +84,49 @@ namespace WebApi.Models
 					   };
 			return list;
 		}
+		public static alumnodto ObtenerAlumno(int id)
+		{
+			soaEntities db = new soaEntities();
+			var obj = db.alumnos.Select(b =>
+				new alumnodto()
+				{
+					id = b.id,
+					nombres = b.nombres,
+					apellidos = b.apellidos,
+					edad = b.edad,
+					genero = b.genero,
+					tipodocumento_id = b.tipodocumento_id,
+					dni = b.dni
+				}).SingleOrDefault(b => b.id == id);
+
+			if (obj == null) obj = new alumnodto() { id = 0, nombres="", apellidos = "", edad = null, tipodocumento_id = null, dni = "" };
+			return obj;
+		}
+		public static alumnodto ActualizarAlumno(int id, alumnodto alumnodto)
+		{
+			soaEntities db = new soaEntities();
+			alumnos alumno = db.alumnos.Find(id);
+			alumno.nombres = alumnodto.nombres;
+			alumno.apellidos = alumnodto.apellidos;
+			alumno.edad = alumnodto.edad;
+			alumno.genero = alumnodto.genero;
+			alumno.tipodocumento_id = alumnodto.tipodocumento_id;
+			alumno.dni = alumnodto.dni;
+			db.Entry(alumno).State = EntityState.Modified;
+			db.SaveChanges();
+			return alumnos.ObtenerAlumno(alumno.id);
+		}
+		public static bool EliminarAlumno(int id)
+		{
+			soaEntities db = new soaEntities();
+			alumnos alumno = db.alumnos.Find(id);
+			db.alumnos.Remove(alumno);
+			db.SaveChanges();
+			return true;
+		}
+
+		
+
+
 	}
 }

@@ -3,9 +3,14 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div id="app">
+    <div id="app" class="container">
         <h1>Lista de alumnos</h1>
         Tipo de documento: <select v-model="tipodocumento_id">
             <option value="1">Tipo 1</option>
@@ -14,24 +19,65 @@
             <option value="4">Tipo 4</option>
         </select>
 
-        Nombre: <input v-model="nombres" />
-        <button @click="buscar">Buscar</button>
+        <button @click="buscar" class="btn btn-primary">Buscar</button>
+        <button @click="editar(0)" class="btn btn-success">Nuevo</button>
         <br />
-        Resultados: {{nombres}}
 
-        <table>
+        <table class="table">
             <tr>
                 <th>Nombres</th>
                 <th>Apellidos</th>
                 <th>Edad</th>
+                <th>Tipo documento</th>
             </tr>
 
             <tr v-for="item in alumnos">
                 <td>{{item.nombres}}</td>
                 <td>{{item.apellidos}}</td>
                 <td>{{item.edad}}</td>
+                <td>{{item.tipodocumento_id}}</td>
+                <td><button class="btn btn-primary" @click="editar(item.id)">Editar</button></td>
+                <td><button class="btn btn-danger"  @click="eliminar(item.id)">Eliminar</button></td>
             </tr>
         </table>
+
+        <div id="mdlAlumno" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="">Nombre</label>
+                                <input type="text" class="form-control" v-model="alumno.nombres" id="" placeholder="Nombre">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Apellidos</label>
+                                <input type="text" class="form-control" v-model="alumno.apellidos" id="" placeholder="Apellidos">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Edad</label>
+                                <input type="text" class="form-control" v-model="alumno.edad" id="" placeholder="Edad">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Tipo documento</label>
+                                <input type="text" class="form-control" v-model="alumno.tipodocumento_id" id="" placeholder="Tipo documento">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" @click="guardar" v-if="alumno.id != 0">Guardar</button>
+                        <button type="button" class="btn btn-primary" @click="insertar" v-if="alumno.id == 0">Registrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 
@@ -43,16 +89,47 @@
             el: "#app",
             data: {
                 tipodocumento_id: 1,
-                nombres: "",
-                alumnos: []
+                alumnos: [],
+                alumno: { id: 0 }
+            },
+            mounted: function() {
+                this.buscar();
             },
             methods: {
                 buscar: function () {
-                    var url = "http://localhost:51014/api/Evaluacion/ListarAlumnosPorDocumento";
+                    var url = "http://localhost:51014/api/Evaluacion/ListarAlumnosPorDocumento?tipodocumento_id=" + this.tipodocumento_id;
                     this.$http.get(url).then(function (response) {
                         this.alumnos = response.body;
                     });
                     //alert(this.nombres);
+                },
+                editar: function (id) {
+                    var url = "http://localhost:51014/api/AfiliacionUsuarios/ObtenerAlumno?id=" + id;
+                    this.$http.get(url).then(function (response) {
+                        this.alumno = response.body;
+                        $("#mdlAlumno").modal("show")
+                    });
+                },
+                guardar: function (id) {
+                    var url = "http://localhost:51014/api/AfiliacionUsuarios/ActualizarAlumno?id=" + this.alumno.id;
+                    this.$http.post(url, this.alumno).then(function (response) {
+                        this.buscar();
+                        $("#mdlAlumno").modal("hide")
+                    });
+                },
+                insertar: function (id) {
+                    var url = "http://localhost:51014/api/AfiliacionUsuarios/RegistrarAlumno";
+                    this.$http.put(url, this.alumno).then(function (response) {
+                        this.buscar();
+                        $("#mdlAlumno").modal("hide")
+                    });
+                },
+                eliminar: function (id) {
+                    var url = "http://localhost:51014/api/AfiliacionUsuarios/EliminarAlumno?id=" + id;
+                    this.$http.delete(url).then(function (response) {
+                        this.buscar();
+                        $("#mdlAlumno").modal("hide")
+                    });
                 }
             }
         })

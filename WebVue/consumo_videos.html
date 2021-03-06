@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="app" class="container">
+        <h1>Lista de contenido de multimedia</h1>
+        
+        <table class="table">
+            <tr>
+                <td>P Entrada</td>
+                <td>Invocación</td>
+                <td>Resultados</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Tipo Contenido Multimedia</label>
+                        <select class="form-control" v-model="parametros1.resultado_lista_tipo_contenido_multimedia_seleccionado">
+                            <option v-for="item in resultado_lista_tipo_contenido_multimedia" :value="item.id_tcontenido_multimedia">{{item.nombre}}</option>
+                        </select>
+                    </div>
+                    <!--<div class="form-group row mt-2">
+        <label for="" class="col-sm-2 col-form-label">Código multimedia</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" v-model="parametros1.id_contenido_multimedia">
+        </div>
+    </div>-->
+                </td>
+                <td>
+                    <button class="btn btn-primary" @click="servicio0">Servicio 1 - Obtener</button>
+                </td>
+                <td>
+                    {{ resultados1 }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label">Id</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="parametros2.id_contenido_multimedia">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label">Edad</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="parametros2.edad_clasificacion">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label">Año</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="parametros2.anho_publicacion">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label">Director</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="parametros2.director">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label">Video</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="parametros2.id_video">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label">Tipo contenido Multimedia</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="parametros2.id_tcontenido_multimedia">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <button class="btn btn-primary" @click="servicio2">Servicio 2 - Actualizar</button>
+                </td>
+                <td>
+                    {{ resultados2 }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label">Edad</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="parametros3.edad_clasificacion">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label">Año</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="parametros3.anho_publicacion">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label">Director</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="parametros3.director">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label">Video</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="parametros3.id_video">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label">Tipo contenido Multimedia</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="parametros3.id_tcontenido_multimedia">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <button class="btn btn-primary" @click="servicio3">Servicio 3 - Guardar</button>
+                </td>
+                <td>
+                    {{ resultados3 }}
+                </td>
+            </tr>
+        </table>
+
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                parametros1: {
+                    id_contenido_multimedia: 1,
+                    resultado_lista_tipo_contenido_multimedia_seleccionado: ""
+                },
+                resultados1: [],
+                parametros2: {
+                    id_contenido_multimedia: 1,
+                    edad_clasificacion: 0,
+                    anho_publicacion: 0,
+                    director: "",
+                    id_video: 1,
+                    id_tcontenido_multimedia:0
+                },
+                resultados2: [],
+                parametros3: {
+                    edad_clasificacion: 0,
+                    anho_publicacion: 0,
+                    director: "",
+                    id_video: 0,
+                    id_tcontenido_multimedia: 0
+                },
+                resultados3: [],
+                resultado_lista_tipo_contenido_multimedia: []
+            },
+            beforeMount: function () {
+                this.servicio_lista_tipo_contenido_multimedia();
+            },
+            methods: {
+                servicio0: function () {
+                    var url = "http://localhost:51014/api/Peliculas/ListarMultimediaPorTipo?id_tcontenido_multimedia=" + this.parametros1.resultado_lista_tipo_contenido_multimedia_seleccionado;
+                    this.$http.get(url).then(function (response) {
+                        this.resultados1 = response.body;
+                    });
+                },
+                servicio1: function () {
+                    var url = "http://localhost:51014/api/Peliculas/ObtenerVideo?id_contenido_multimedia=" + this.parametros1.id_contenido_multimedia;
+                    this.$http.get(url).then(function (response) {
+                        this.resultados1 = response.body;
+                    });
+                },
+                servicio2: function () {
+                    var url = "http://localhost:51014/api/Peliculas/ActualizarVideo?id_contenido_multimedia=" + this.parametros2.id_contenido_multimedia;
+                    this.$http.post(url, this.parametros2 ).then(function (response) {
+                        this.resultados2 = response.body;
+                    });
+                },
+                servicio3: function () {
+                    var url = "http://localhost:51014/api/Peliculas/RegistrarVideo";
+                    this.$http.put(url, this.parametros3).then(function (response) {
+                        this.resultados3 = response.body;
+                    });
+                },
+                servicio_lista_tipo_contenido_multimedia: function () {
+                    var url = "http://localhost:51014/api/Peliculas/ListarTipoMultimedia";
+                    this.$http.get(url).then(function (response) {
+                        this.resultado_lista_tipo_contenido_multimedia = response.body;
+                    });
+                }
+            }
+        })
+    </script>
+</body>
+</html>

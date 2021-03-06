@@ -67,6 +67,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="consumo_videos.html" />
+    <Content Include="Consumo.html" />
     <Content Include="Alumnos.html" />
     <Content Include="list_peliculas.html" />
     <Content Include="list_peliculas_titulo.html" />

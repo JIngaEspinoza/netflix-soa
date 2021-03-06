@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="app" class="container">
+        <h1>Lista de alumnos</h1>
+        
+        <table class="table">
+            <tr>
+                <td>P Entrada</td>
+                <td>Invocación</td>
+                <td>Resultoados</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label">Tipo documento</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="parametros1.tipodocumento_id">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <button class="btn btn-primary" @click="servicio1">Servicio 1</button>
+                </td>
+                <td>
+                    {{ resultados1 }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label">Id</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="parametros2.id">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label">Nombre</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="parametros2.nombres">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label">Apellidos</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="parametros2.apellidos">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label">Edad</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="parametros2.edad">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label">Tipo documento</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="parametros2.tipodocumento_id">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <button class="btn btn-primary" @click="servicio2">Servicio 2</button>
+                </td>
+                <td>
+                    {{ resultados2 }}
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <button class="btn btn-primary" @click="servicio3">Servicio 3</button>
+                </td>
+                <td>
+                    {{ resultados3 }}
+                </td>
+            </tr>
+        </table>
+
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                parametros1: {
+                    tipodocumento_id: 1
+                },
+                resultados1: [],
+                parametros2: {
+                    id: 1,
+                    nombres: "",
+                    apellidos: "",
+                    edad: 0,
+                    tipodocumento_id: 1
+                },
+                resultados2: [],
+                parametros3: [],
+                resultados3: [],
+            },
+            methods: {
+                servicio1: function () {
+                    var url = "http://localhost:51014/api/Evaluacion/ListarAlumnosPorDocumento?tipodocumento_id=" + this.parametros1.tipodocumento_id;
+                    this.$http.get(url).then(function (response) {
+                        this.resultados1 = response.body;
+                    });
+                },
+                servicio2: function () {
+                    var url = "http://localhost:51014/api/AfiliacionUsuarios/ActualizarAlumno?id=" + this.parametros2.id;
+                    this.$http.post(url, this.parametros2 ).then(function (response) {
+                        this.resultados2 = response.body;
+                    });
+                },
+                servicio3: function () {
+                    var url = "http://localhost:51014/api/Evaluacion/ListarAlumnosPorDocumento?tipodocumento_id=" + this.tipodocumento_id;
+                    this.$http.get(url).then(function (response) {
+                        this.resultados3 = response.body;
+                    });
+                },
+            }
+        })
+    </script>
+</body>
+</html>

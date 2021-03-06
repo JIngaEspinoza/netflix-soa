@@ -289,10 +289,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transfers\alumnodto.cs" />
     <Compile Include="Transfers\categoriadto.cs" />
+    <Compile Include="Transfers\contenidomultemediadto.cs" />
     <Compile Include="Transfers\contenidomultimediagenerodto.cs" />
     <Compile Include="Transfers\cursodto.cs" />
     <Compile Include="Transfers\generodto.cs" />
     <Compile Include="Transfers\peliculadto.cs" />
+    <Compile Include="Transfers\tipocontenidomultimediadto.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
